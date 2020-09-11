@@ -6,6 +6,8 @@ import (
 	"io/ioutil"
 	"os"
 	"strings"
+	"sync"
+	"time"
 )
 
 func main() {
@@ -52,8 +54,28 @@ func main() {
 				}
 			} else {
 				fmt.Println("answer ?")
+
+				var wait sync.WaitGroup
+				wait.Add(1)
+				c := make(chan string)
+				go timerFunc(c)
 				userString = ""
 				fmt.Scanln(&userString)
+				if userString != "" {
+					wait.Done()
+					// wait.Wait() ; not needed here.
+				} else {
+					msg := <-c
+					if msg == "time is up" {
+						fmt.Println(msg + "! Next question.")
+						total = total + 1
+						flag = 0
+						compare = ""
+						userString = ""
+						wait.Done()
+						continue
+					}
+				}
 				compare = ""
 				for string(data[i]) != "\n" && i < num {
 					compare = compare + string(data[i])
@@ -80,4 +102,8 @@ func main() {
 	fmt.Printf("you scored %v / %v\n", correct, total)
 	defer fmt.Println("closing file")
 	defer file.Close() //embedded struct extention thing.
+}
+func timerFunc(c chan string) {
+	time.Sleep(time.Second * 5)
+	c <- "time is up"
 }
