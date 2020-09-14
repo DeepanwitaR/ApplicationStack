@@ -6,7 +6,6 @@ import (
 	"io/ioutil"
 	"os"
 	"strings"
-	"sync"
 	"time"
 )
 
@@ -38,7 +37,7 @@ func main() {
 	correct := 0
 	userString := ""
 	compare := ""
-	for ; i < num; i = i + 1 {
+	for ; i < num-1; i = i + 1 {
 		if string(data[i]) == "\n" {
 			// fmt.Println("newline")
 			continue
@@ -55,27 +54,27 @@ func main() {
 			} else {
 				fmt.Println("answer ?")
 
-				var wait sync.WaitGroup
-				wait.Add(1)
-				c := make(chan string)
-				go timerFunc(c)
+				// var wait sync.WaitGroup
+				// wait.Add(1)
+				// c := make(chan string)
+				// go timerFunc(c)
+				// timerFunc(c)
 				userString = ""
 				fmt.Scanln(&userString)
-				if userString != "" {
-					wait.Done()
-					// wait.Wait() ; not needed here.
-				} else {
-					msg := <-c
-					if msg == "time is up" {
-						fmt.Println(msg + "! Next question.")
-						total = total + 1
-						flag = 0
-						compare = ""
-						userString = ""
-						wait.Done()
-						continue
-					}
-				}
+				// if userString != "" {
+				// 	wait.Done()
+				// 	// wait.Wait() ; not needed here.
+				// } else {
+				// msg := <-c
+				// if msg == "time is up" {
+				// 	fmt.Println(msg + "! Next question.")
+				// 	total = total + 1
+				// 	flag = 0
+				// 	compare = ""
+				// 	userString = ""
+				// 	wait.Done()
+				// 	continue
+				// }
 				compare = ""
 				for string(data[i]) != "\n" && i < num {
 					compare = compare + string(data[i])
