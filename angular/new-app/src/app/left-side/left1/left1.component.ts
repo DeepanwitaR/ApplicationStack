@@ -5,12 +5,12 @@ import { Component, OnInit } from '@angular/core';
   templateUrl: './left1.component.html',
   styleUrls: ['./left1.component.css']
 })
-export class Left1Component implements OnInit {
+export class Left1Component  {
 
   constructor() { }
 
-  ngOnInit() {
-    //remember for now its a lifecycle hook.
-  }
+  // ngOnInit() {
+  //   //remember for now its a lifecycle hook.
+  // }
 
 }
