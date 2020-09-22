@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Service1Service } from './service1.service';
 
 @Component({
   selector: 'app-root',
@@ -7,4 +8,9 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'new-app';
+  // list = [];
+  //service to be accessed via dependency injection.
+  constructor(private list1: Service1Service) {
+    console.log(list1.getDetails());
+  }
 }

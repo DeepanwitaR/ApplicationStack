@@ -5,6 +5,9 @@ import { AppComponent } from './app.component';
 import {RouterModule} from '@angular/router';  
 import { Left1Component } from './left-side/left1/left1.component';
 import { Left2Component } from './left-side/left2/left2.component';
+import { Service1Service } from './service1.service';
+
+
 @NgModule({
   declarations: [
     AppComponent
@@ -36,7 +39,7 @@ import { Left2Component } from './left-side/left2/left2.component';
       // {
     ]) //root routes, where we hit the //we must have a routerOutlet, where to display the corresponding comp.
   ],
-  providers: [],
+  providers: [Service1Service],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
